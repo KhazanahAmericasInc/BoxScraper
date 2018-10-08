@@ -1,14 +1,10 @@
+from configparser import ConfigParser
 from base64 import decodestring
 from webbot import Browser
 from boxsdk import OAuth2
 from boxsdk import Client
 from PIL import Image
 import os
-
-CLIENT_ID = None
-CLIENT_SECRET = None
-EMAIL = None
-PASSWORD = None
 
 def create_local_folder(name):
     # Get path to foldername
@@ -22,7 +18,7 @@ def create_local_folder(name):
 
     return path
     
-def web_auth(auth_url, csrf_token):
+def web_auth(auth_url, csrf_token, email, password):
     # Constants
     state_param = 'state='
     code_param = 'code='
@@ -33,8 +29,8 @@ def web_auth(auth_url, csrf_token):
 
     # Web authentication process
     web.go_to(auth_url)
-    web.type(EMAIL, 'login')
-    web.type(PASSWORD,'password')
+    web.type(email, 'login')
+    web.type(password,'password')
     web.click('Authorize')
     web.click('Grant access to Box')
     
@@ -52,18 +48,19 @@ def web_auth(auth_url, csrf_token):
     # Return access codes
     return access_csrf, access_code
 
-def box_login():
+def box_login(id, secret, email, password):
+    print(id,secret,email,password)
     # Create OAuth Object
     oauth = OAuth2(
-        client_id=CLIENT_ID,
-        client_secret=CLIENT_SECRET,
+        client_id=id,
+        client_secret=secret,
     )
 
     # Get auth url and csrf token
     auth_url, csrf_token = oauth.get_authorization_url('https://127.0.0.1:8082/Auth')
 
     # Get csrf reference and access code
-    access_csrf, access_code = web_auth(auth_url,csrf_token)
+    access_csrf, access_code = web_auth(auth_url,csrf_token, email, password)
 
     # Check csrf validity and authenticate OAuth
     assert access_csrf == csrf_token
@@ -71,9 +68,15 @@ def box_login():
 
     return oauth
 
+def loadBoxInfo():
+    config = ConfigParser()
+    config.read('config.ini')
+    return config['BOX']
+
 def main():
+    box_info = loadBoxInfo()
     # Get oauth object
-    oauth = box_login()
+    oauth = box_login(box_info['CLIENT_ID'], box_info['CLIENT_SECRET'], box_info['EMAIL'], box_info['PASSWORD'])
 
     # Create Box client
     client = Client(oauth)
