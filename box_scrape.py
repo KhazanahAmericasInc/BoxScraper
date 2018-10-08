@@ -9,7 +9,13 @@ import os
 def create_local_folder(name):
     # Get path to foldername
     cwd = os.getcwd()
-    path = os.path.join(cwd, name)
+    path_downloads = os.path.join(cwd, 'downloads')
+
+    if not os.path.exists(path_downloads):
+        os.mkdir(path_downloads)
+        print("Created downloads folder.")
+
+    path = os.path.join(path_downloads, name)
     
     # Create folder if it does not exist
     if not os.path.exists(path):

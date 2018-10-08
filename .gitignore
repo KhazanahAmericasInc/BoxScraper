@@ -1,6 +1,8 @@
 .vscode
 <*
 config.1.ini
+downloads
+downloads/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
