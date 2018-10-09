@@ -96,8 +96,30 @@ def main():
     latest_folder_items = latest_folder.get_items(limit=100, offset=0)
 
     # Create a folder in the local root directory with the name of the latest folder in Box
-    local_folder = create_local_folder(str(latest_folder))
+    #local_folder = create_local_folder(str(latest_folder))
+    local_folder = create_local_folder('')
 
+    """ DOWNLOADS ALL """
+    for i in range(len(root_folder_items)):
+        _latest_folder_items = root_folder_items[i].get_items(limit=100, offset=0)
+
+        for j in range(len(_latest_folder_items)):
+            image_path = os.path.join(local_folder, str(_latest_folder_items[j]) + ".jpg")
+
+            if os.path.exists(image_path):
+                continue
+
+            byte_array = _latest_folder_items[j].content()
+
+            f = open(image_path, "wb")
+            f.write(byte_array)
+            f.close()
+
+            print(image_path," completed.")
+    """ DOWNLOADS ALL """
+
+
+""" DOWNLOAD LATEST FOLDER ONLY
     # Write all images to the local folder
     for i in range(len(latest_folder_items)):
         # Add bytestream from Box into a byte array
@@ -112,7 +134,6 @@ def main():
         f.close()
 
         print(image_path, "completed.")
-
-
+"""
 if __name__ == "__main__":
     main()

@@ -15,7 +15,8 @@ import cv2
 INPUTOPERATION = "input"
 OUTPUTOPERATION = "output"
 IMAGESHAPE = 64
-LABELS = ("SUV", "SEDAN", "TRUCK")
+LABELS = ("SUV", "FREIGHT TRUCK", "TIMBER TRUCK", "SEDAN", "PICKUP TRUCK", "OIL TRUCK")
+
 
 # Given a file path to a tensorflow model, it loads the graph.
 def load_graph(model_file):
@@ -122,7 +123,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_file", default="model.pb", help="name of file containing trained model")
-    parser.add_argument("--test_data", default="img", help="name of folder containing test images")
+    parser.add_argument("--test_data", default="downloads", help="name of folder containing test images")
     parser.add_argument("--output_file", default="net_output.txt", help="name of the output file containing the network inference results")
     args = parser.parse_args()
     main(args)
