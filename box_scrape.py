@@ -107,6 +107,7 @@ def main():
             image_path = os.path.join(local_folder, str(_latest_folder_items[j]) + ".jpg")
 
             if os.path.exists(image_path):
+                print("Exists: ", image_path)
                 continue
 
             byte_array = _latest_folder_items[j].content()
@@ -116,6 +117,8 @@ def main():
             f.close()
 
             print(image_path," completed.")
+
+    print("Box scrape complete.")
     """ DOWNLOADS ALL """
 
 
