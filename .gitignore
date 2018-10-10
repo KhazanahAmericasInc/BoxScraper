@@ -4,6 +4,7 @@ config.1.ini
 downloads
 downloads/*
 net_output.txt
+map.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

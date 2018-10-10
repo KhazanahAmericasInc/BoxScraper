@@ -100,7 +100,7 @@ def main():
     gmap.scatter(plot_lats, plot_long , '#3B0B39', size=40, marker=False)
 
     # Draw map
-    gmap.draw('my_map.html')
+    gmap.draw('map.html')
 
 if __name__ == "__main__":
     main()
