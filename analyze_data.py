@@ -1,5 +1,6 @@
 from gmplot import gmplot
 
+# Parses filenames with GPS location to JSON format
 def parseLocationFN(file_name):
     img_data = {}
 
@@ -26,7 +27,7 @@ def parseLocationFN(file_name):
 
     return img_data
 
-
+# Parses filenames without GPS location to JSON format
 def parseNoLocationFN(file_name):
     img_data = {}
     data_string = file_name[file_name.index('(') + 1:file_name.index(')')]
@@ -45,6 +46,7 @@ def parseNoLocationFN(file_name):
 
     return img_data
 
+# Parses a line given from the classifier to JSON
 def parseLine(line):
     data_split = line.split(',')
     data_object = {}
@@ -68,6 +70,7 @@ def parseLine(line):
     data_object['img_data'] = img_data
     return data_object
 
+
 def main():
     # Place map
     gmap = gmplot.GoogleMapPlotter(37.766956, -122.438481, 12)
@@ -75,23 +78,28 @@ def main():
     # Get line data
     lines = [line.rstrip('\n') for line in open('net_output.txt')][1:]
 
+    # Create array for JSON objects
     json_data = []
     for line in lines:
         json_data.append(parseLine(line))
 
+    # Create a plot list
     plot_list = []
 
+    # Get plot data from each entry in the json data
     for entry in json_data:
         img_data = entry['img_data']
         if img_data['has_location']:
             plots = (float(img_data['latitude']), float(img_data['longitude']))
             plot_list.append(plots)
-            #print(img_data['latitude'],img_data['longitude'])
 
+    # Zip iterable plot points
     plot_lats, plot_long = zip(*plot_list)
 
+    # Plot points on the map
     gmap.scatter(plot_lats, plot_long , '#3B0B39', size=40, marker=False)
 
+    # Draw map
     gmap.draw('my_map.html')
 
 if __name__ == "__main__":
