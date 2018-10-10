@@ -91,7 +91,10 @@ def main():
         img_data = entry['img_data']
         if img_data['has_location']:
             plots = (float(img_data['latitude']), float(img_data['longitude']))
-            plot_list.append(plots)
+            if entry['final_class'] == 'TIMBER TRUCK':
+                gmap.marker(plots[0], plots[1], 'red')
+            else:
+                plot_list.append(plots)
 
     # Zip iterable plot points
     plot_lats, plot_long = zip(*plot_list)
