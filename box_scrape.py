@@ -81,8 +81,13 @@ def loadBoxInfo():
 
 def main():
     box_info = loadBoxInfo()
+
     # Get oauth object
-    oauth = box_login(box_info['CLIENT_ID'], box_info['CLIENT_SECRET'], box_info['EMAIL'], box_info['PASSWORD'])
+    try:
+        oauth = box_login(box_info['CLIENT_ID'], box_info['CLIENT_SECRET'], box_info['EMAIL'], box_info['PASSWORD'])
+    except ValueError:
+        print("\n********** Value Error! Double check your credentials in the config.ini file. **********\n")
+        exit()
 
     # Create Box client
     client = Client(oauth)
