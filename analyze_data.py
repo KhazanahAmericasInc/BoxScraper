@@ -72,7 +72,7 @@ def parseLine(line):
 
 
 def main():
-    # Place map
+    # Place map on San Francisco @ zoom level 12
     gmap = gmplot.GoogleMapPlotter(37.766956, -122.438481, 12)
 
     # Get line data

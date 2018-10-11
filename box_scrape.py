@@ -1,5 +1,4 @@
 from configparser import ConfigParser
-from base64 import decodestring
 from webbot import Browser
 from boxsdk import OAuth2
 from boxsdk import Client
