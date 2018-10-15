@@ -11,3 +11,4 @@
 
 python3 box_scrape.py
 python3 cnn_v2.py 
+rm net_output.txt

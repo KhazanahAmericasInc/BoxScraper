@@ -13,3 +13,4 @@ python3 box_scrape.py
 python3 cnn_v2.py 
 python3 analyze_data.py
 google-chrome map.html
+rm net_output.txt
