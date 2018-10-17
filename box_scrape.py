@@ -5,6 +5,8 @@ from boxsdk import Client
 from PIL import Image
 import os
 
+
+# Creates and returns the path a folder in /project/downloads/<name>
 def create_local_folder(name):
     # Get path to foldername
     cwd = os.getcwd()
@@ -22,7 +24,9 @@ def create_local_folder(name):
         print("Created folder: ", path)
 
     return path
-    
+
+
+# Obtains the access csrf and access codes for Box (OAuth)
 def web_auth(auth_url, csrf_token, email, password):
     # Constants
     state_param = 'state='
@@ -53,6 +57,8 @@ def web_auth(auth_url, csrf_token, email, password):
     # Return access codes
     return access_csrf, access_code
 
+
+# Logs into box via id, secret, email and password
 def box_login(id, secret, email, password):
     print(id,secret,email,password)
     # Create OAuth Object
@@ -73,11 +79,15 @@ def box_login(id, secret, email, password):
 
     return oauth
 
+
+# Loads from config file
 def loadBoxInfo():
     config = ConfigParser()
     config.read('config.ini')
     return config['BOX']
 
+
+# Main loop
 def main():
     box_info = loadBoxInfo()
 
@@ -103,7 +113,7 @@ def main():
     #local_folder = create_local_folder(str(latest_folder))
     local_folder = create_local_folder('')
 
-    """ DOWNLOADS ALL """
+    """ DOWNLOADS ALL IMAGES FROM BOX""" 
     for i in range(len(root_folder_items)):
         _latest_folder_items = root_folder_items[i].get_items(limit=100, offset=0)
 
@@ -123,10 +133,9 @@ def main():
             print(image_path," completed.")
 
     print("Box scrape complete.")
-    """ DOWNLOADS ALL """
 
 
-""" DOWNLOAD LATEST FOLDER ONLY
+    """ DOWNLOAD LATEST FOLDER ONLY
     # Write all images to the local folder
     for i in range(len(latest_folder_items)):
         # Add bytestream from Box into a byte array
@@ -141,6 +150,6 @@ def main():
         f.close()
 
         print(image_path, "completed.")
-"""
+    """
 if __name__ == "__main__":
     main()
