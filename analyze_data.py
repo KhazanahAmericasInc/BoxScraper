@@ -93,6 +93,8 @@ def main():
             plots = (float(img_data['latitude']), float(img_data['longitude']))
             if entry['final_class'] == 'TIMBER TRUCK':
                 gmap.marker(plots[0], plots[1], 'red')
+            elif entry['final_class'] == 'PRIUS':
+                gmap.marker(plots[0], plots[1], 'blue', title=img_data['month'] + '/' + img_data['day'] + '/' + img_data['year'])
             else:
                 plot_list.append(plots)
 
@@ -100,7 +102,7 @@ def main():
     plot_lats, plot_long = zip(*plot_list)
 
     # Plot points on the map
-    gmap.scatter(plot_lats, plot_long , '#3B0B39', size=40, marker=False)
+    gmap.heatmap(plot_lats, plot_long)
 
     # Draw map
     gmap.draw('map.html')

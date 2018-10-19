@@ -103,7 +103,7 @@ def main():
 
     # Get Box root folder
     root = client.folder(folder_id='0')
-    root_folder_items = root.get_items(limit=100, offset=0)
+    root_folder_items = root.get_items(limit=1000, offset=0)
 
     # Get latest folder
     latest_folder = root_folder_items[len(root_folder_items)-1]
