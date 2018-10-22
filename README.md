@@ -1,8 +1,8 @@
 # BoxScraper
-Scrapes images off of box and writes it to a local directory. Also includes a simple box filename parser and map plotter. Plots purple dots for the traffic events tracked. Plots red markers for the timber trucks detected. Designed to be used in conjunction with the sensortower.
+Scrapes images off of box and writes it to a local directory. Also includes a simple box filename parser and map plotter. Plots a heatmap for the traffic events tracked. Plots red markers for the timber trucks detected. Designed to be used in conjunction with the sensortower.
 
 ## Installation
-Install the following Python 3 dependencies:
+Install Python 3 and the following Python 3 dependencies:
 - Tensorflow
 - OpenCV
 - Numpy
