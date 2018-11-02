@@ -59,12 +59,14 @@ def parseLine(line):
         data_object['guess_class'] = data_split[2]
         data_object['confidence'] = data_split[3]
         data_object['final_class'] = data_split[4]
+        data_object['file_name'] = file_name
         img_data = parseLocationFN(file_name)
     else:
         file_name = data_split[0]
         data_object['guess_class'] = data_split[1]
         data_object['confidence'] = data_split[2]
         data_object['final_class'] = data_split[3] 
+        data_object['file_name'] = file_name
         img_data = parseNoLocationFN(file_name)
 
     data_object['img_data'] = img_data
@@ -98,11 +100,13 @@ def main():
             else:
                 plot_list.append(plots)
 
-    # Zip iterable plot points
-    plot_lats, plot_long = zip(*plot_list)
+   
+    if(len(plot_list) > 0):
+         # Zip iterable plot points
+        plot_lats, plot_long = zip(*plot_list)
 
-    # Plot points on the map
-    gmap.heatmap(plot_lats, plot_long)
+        # Plot points on the map
+        gmap.heatmap(plot_lats, plot_long)
 
     # Draw map
     gmap.draw('map.html')

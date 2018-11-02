@@ -197,11 +197,15 @@ def main(_):
     label = run_inference_on_image(os.path.join(FLAGS.image_file, image),node_lookup)
     count += 1
     gc.collect()
-    if("truck" in label or "car" in label or "wagon" in label or "van" in label or not "cartoon" in label or "cab" in label):
+    if("truck" in label or "wagon" in label or "van" in label or "cab" in label or "limo" in label or ("car" in label and "cardigan" not in label and "cartoon" not in label)) :
       print(count,":",label)
+      print(count," file name:", image)
     else:
+      if not os.path.exists("./notcars"):
+          os.mkdir('notcars')
       print(count,": removing ", label)
-      os.remove(os.path.join(FLAGS.image_file, image))
+      print(count," file name:", image)
+      os.rename(os.path.join(FLAGS.image_file, image), os.path.join('notcars', image))
 
 
 if __name__ == '__main__':

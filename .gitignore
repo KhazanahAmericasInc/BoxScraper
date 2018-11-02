@@ -3,6 +3,8 @@
 config.1.ini
 downloads
 downloads/*
+notcars
+notcars/*
 net_output.txt
 map.html
 

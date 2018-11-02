@@ -9,6 +9,11 @@ import cv2
 # This script uses a trained CNN model to predict the classes of input images. The input argument includes a folder
 # which will be searched for images. The classification of all images will be outputed to a text file that contains
 # the name of the image, the label it was given, and the confidence it got.
+#
+#
+# TODO
+# - Replace entire CNN model for a proven vehicle classifier, or some alternate classifier with better performance. (Possibly: AlexNet, Segnet etc.)
+# - Push data onto a No schema DB
 ### 
 
 # Global Variables
